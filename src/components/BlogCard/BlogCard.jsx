@@ -1,3 +1,7 @@
+// import { formatDate } from 'components/date';
+import { getDate } from 'date-fns';
+import { formatDate, formatDateToNow } from 'components/date';
+import PropTypes from 'prop-types';
 import {
   Card,
   CardBody,
@@ -13,7 +17,43 @@ import {
   UserName,
   Date,
 } from './BlogCard.styled';
+export const BlogCard = ({ poster, tag, title, description, name, avatar, postedAt }) => {
+  const result = formatDateToNow(
+    formatDate(postedAt)
+  )
+  return <div>
+    <Card>
+      <CardHeader>
+        <CardPoster
+          src={poster}
+          alt="card__image"
+        />
+      </CardHeader>
+      <CardBody>
+        <Tag>{tag}</Tag>
+        <CardTitle>{title}</CardTitle>
+        <CardText>
+          {description}
+        </CardText>
+      </CardBody>
+      <CardFooter>
+        <UserBox>
+          <Avatar src={avatar} alt="Jane Doe" />
+          <UserInfo>
+            <UserName>{name}</UserName>
+            <Date>{result}</Date>
+          </UserInfo>
+        </UserBox>
+      </CardFooter>
+    </Card>
+  </div>;
+};
 
-export const BlogCard = () => {
-  return <div>BlogCard</div>;
+BlogCard.propTypes = {
+  poster: PropTypes.string,
+  tag: PropTypes.string,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  name: PropTypes.string,
+  postedAt: PropTypes.string,
 };
